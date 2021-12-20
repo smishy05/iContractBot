@@ -1,0 +1,891 @@
+Training sentences for each intention
+	
+	val createContract = intent("CreateContract")
+            .trainingSentence("I want to create a contract")
+            .trainingSentence("Create a contract")
+            .trainingSentence("I wish to make a contract")
+            .trainingSentence("I wish to develop a contract")
+            .trainingSentence("Create a smart contract")
+            .trainingSentence("Make a smart contract")
+            .trainingSentence("Develop a smart contract")
+            .trainingSentence("Create a contract")
+            .trainingSentence("I want you to guide me to make a smart contract")
+            .trainingSentence("Please create a smart contract")
+            .trainingSentence("Please make a smart contract");
+
+        //Intent to find if the user wants to edit a contract
+        val editContract = intent("EditContract")
+            .trainingSentence("I want to edit a contract")
+            .trainingSentence("Edit a contract")
+            .trainingSentence("Update a contract")
+            .trainingSentence("I want to change a contract")
+            .trainingSentence("Change a contract")
+            .trainingSentence("I want to update a contract")
+            .trainingSentence("Edit a contract")
+            .trainingSentence("I wish to update a contract")
+            .trainingSentence("I wish to change a contract");
+
+        //Obtain the name of the contract that is to be created or that is to be edited
+        val contractName = intent("ContractName")
+            .trainingSentence("The name of the contract is CONT")
+            .trainingSentence("Name of the contract is CONT")
+            .trainingSentence("I want to set the name of the contract as CONT")
+            .trainingSentence("Set the name as CONT")
+            .trainingSentence("Set the name of the contract as CONT")
+            .trainingSentence("The name of the smart contract should be CONT")
+            .trainingSentence("The name of the smart contract should be set to CONT")
+            .trainingSentence("Smart contract's name is CONT")
+            .trainingSentence("I want to call the contract as CONT")
+            .trainingSentence("Contract's name is CONT")
+            .trainingSentence("Name of the contract is CONT")
+            .trainingSentence("Contract = CONT")
+            .trainingSentence("Contract is CONT")
+            .parameter("cont").fromFragment("CONT").entity(any());
+
+        val createElement = intent("CreateElement")
+            .trainingSentence("I want to build an element")
+            .trainingSentence("I want to create an element")
+            .trainingSentence("I want to make an element")
+            .trainingSentence("Create an element")
+            .trainingSentence("Make an element for the contract");
+
+        val editElement = intent("EditElement")
+            .trainingSentence("I want to edit an element")
+            .trainingSentence("I want to update an element")
+            .trainingSentence("I want to change an element")
+            .trainingSentence("Make changes to an element")
+            .trainingSentence("Edit an element for the contract");
+
+        val deleteElement = intent("DeleteElement")
+            .trainingSentence("I want to delete an element")
+            .trainingSentence("I want to remove an element")
+            .trainingSentence("Delete an element")
+            .trainingSentence("Remove an element for the contract");
+
+        val readElement = intent("ReadElement")
+            .trainingSentence("I want to read an element")
+            .trainingSentence("I want you to show me an element")
+            .trainingSentence("Show me an element");
+
+        // Common States
+
+
+
+        // Participants----------------------------------------------------------------------------------------
+
+        val notTheParticipant = intent("NotTheParticipant")
+            .trainingSentence("No, this isn't the participant")
+            .trainingSentence("This one is not the participant")
+            .trainingSentence("I don't want to edit this participant")
+            .trainingSentence("I don't want to delete this participant")
+            .trainingSentence("I don't want to read this participant")
+            .trainingSentence("This isn't the participant")
+            .trainingSentence("This participant should not be edited")
+            .trainingSentence("This participant should not be deleted")
+            .trainingSentence("This participant should not be shown");
+
+        //***************************************************************************************************************************
+
+        // Creating a participant
+
+        /*
+        User tells that he/she wants to create a participant - Bot asks the name of the participant
+        User tells the name of the participant - Bot asks for the list attribute of the participant
+        User tells the list attribute of the participant - Bot asks if they want want to have parameters
+        User says yes for creating parameters - Bot asks for the parameter's name
+        User says no for creating parameters - Bot asks if the user wants to create any relationship
+        User tells the name - Bot asks the type of the parameter
+        User tells the type of the parameter - Bot asks if the user wants to create any more parameters
+        */
+
+        val createParticipant = intent("CreateParticipant")
+            .trainingSentence("I want to create a participant")
+            .trainingSentence("Create a participant")
+            .trainingSentence("Create a party")
+            .trainingSentence("Create a contractual party")
+            .trainingSentence("Create participant")
+            .trainingSentence("Create another participant")
+            .trainingSentence("I wish to create a participant")
+            .trainingSentence("A participant should be created");
+
+        val createParticipantSetName = intent("CreateParticipantSetName")
+            .trainingSentence("The name of the participant should be PARTNAME")
+            .trainingSentence("Define the name of the participant as PARTNAME")
+            .trainingSentence("The name of the participant is PARTNAME")
+            .trainingSentence("I want to name the participant as PARTNAME")
+            .trainingSentence("Set the name of the participant as PARTNAME")
+            .trainingSentence("Participant's name is PARTNAME")
+            .trainingSentence("Name of participant = PARTNAME")
+            .parameter("partname").fromFragment("PARTNAME").entity(any());
+
+        val createParticipantSetList = intent("createParticipantSetList")
+            .trainingSentence("The list attribute of the participant is PARTLIST")
+            .trainingSentence("The list for the participant is PARTLIST")
+            .parameter("partlist").fromFragment("PARTLIST").entity(any());
+
+        val createParticipantAssertParameter = intent("CreateParticipantAssertParameter")
+            .trainingSentence("Yes, I want to have a parameter for this participant")
+            .trainingSentence("Yes, I want to have more parameters for the participant")
+            .trainingSentence("I want to build more parameters for this participant")
+            .trainingSentence("I want to add more parameters to the ")
+            .trainingSentence("Yes, I want to create another parameter for the participant");
+
+        val createParticipantAssertRelationship = intent("CreateParticipantAssertRelationship")
+            .trainingSentence("Yes, I want to build a relationship for this participant")
+            .trainingSentence("Yes, I want to build more relationships for the participant")
+            .trainingSentence("I want to build more relationships for this participant");
+
+        val createParticipantDone = intent("CreateParticpantDone")
+            .trainingSentence("No, that's all for the participant")
+            .trainingSentence("This participant is completed")
+            .trainingSentence("No, I don't want to change the participant anymore")
+            .trainingSentence("The participant is complete")
+            .trainingSentence("The participant is done")
+            .trainingSentence("Nothing more to add to the participant");
+
+        val createParticipantSetIdentifier = intent("CreateParticipantSetIdentifier")
+            .trainingSentence("I want PARTID to be the identifier for the participant")
+            .trainingSentence("PARTID should be the identifier for the participant")
+            .trainingSentence("Make PARTID the identifier for the participant")
+            .trainingSentence("Participant's identifier is PARTID")
+            .trainingSentence("Participant's should be PARTID")
+            .parameter("partid").fromFragment("PARTID").entity(any());
+
+        //***************************************************************************************************************************
+
+        // Editing a participant
+
+        val editParticipant = intent("EditParticipant")
+            .trainingSentence("I want to edit a participant")
+            .trainingSentence("Edit a participant")
+            .trainingSentence("edit a party")
+            .trainingSentence("change a participant")
+            .trainingSentence("change a party")
+            .trainingSentence("edit contractual party")
+            .trainingSentence("contractual party")
+            .trainingSentence("change a contractual party")
+            .trainingSentence("Make changes in a participant")
+            .trainingSentence("Make changes in a contractual party")
+            .trainingSentence("I wish to edit a participant")
+            .trainingSentence("A participant should be edited");
+
+        val editParticipantGetName = intent("EditParticipantGetName")
+            .trainingSentence("The name of the participant that has to be edited is GEPARTNAME")
+            .trainingSentence("The participant to be edited is GEPARTNAME")
+            .trainingSentence("I want to edit the participant named GEPARTNAME")
+            .trainingSentence("Edit the participant GEPARTNAME")
+            .trainingSentence("The participant to be updated is GEPARTNAME")
+            .parameter("gepartname").fromFragment("GEPARTNAME").entity(any());
+
+        val editParticipantConfirm = intent("EditParticipantConfirm")
+            .trainingSentence("Yes, edit this participant")
+            .trainingSentence("Yes, I want to edit this participant")
+            .trainingSentence("Yes, this is the participant I want to edit")
+            .trainingSentence("Yes, this is the participant")
+            .trainingSentence("Yep, this participant has to be edited");
+
+        val editParticipantChangeName = intent("EditParticipantChangeName")
+            .trainingSentence("I want to change the name of the participant")
+            .trainingSentence("I want to edit the name of the participant")
+            .trainingSentence("I want to rename the participant")
+            .trainingSentence("Change the name of the participant")
+            .trainingSentence("Change the name of the party")
+            .trainingSentence("Edit the name of the party")
+            .trainingSentence("The name of the participant has to be changed");
+
+        val editParticipantChangeIdentifier = intent("EditParticipantChangeIdentifier")
+            .trainingSentence("I want to change the identifier for the participant")
+            .trainingSentence("I want to update the identifier for the participant")
+            .trainingSentence("Change the identifier of the participant")
+            .trainingSentence("The identifier of the participant should be edited");
+
+        val editParticipantEditParameter = intent("EditParticipantEditParameter")
+            .trainingSentence("I want to edit a parameter for the participant")
+            .trainingSentence("I want to update a parameter for the participant")
+            .trainingSentence("Edit a parameter of the participant")
+            .trainingSentence("A parameter of the participant has to be edited")
+            .trainingSentence("I want to edit a parameter of the participant");
+
+        val editParticipantDeleteParameter = intent("EditParticipantDeleteParameter")
+            .trainingSentence("I want to delete a parameter for the participant")
+            .trainingSentence("I want to remove a parameter for the participant")
+            .trainingSentence("Delete a parameter of the participant")
+            .trainingSentence("A parameter of the participant has to be deleted");
+
+        val editParticipantContinueEditing = intent("EditParticipantContinueEditing")
+            .trainingSentence("I want to continue editing this participant")
+            .trainingSentence("I want to edit this participant")
+            .trainingSentence("I want to make more changes in the participant")
+            .trainingSentence("Continue editing the participant")
+            .trainingSentence("I want to update this participant more");
+
+        //***************************************************************************************************************************
+
+        // Deleting a participant
+
+        val deleteParticipant = intent("DeleteParticipant")
+            .trainingSentence("I want to delete a participant")
+            .trainingSentence("Delete a participant")
+            .trainingSentence("I wish to delete a participant")
+            .trainingSentence("A participant should be deleted")
+            .trainingSentence("A participant has to be removed")
+            .trainingSentence("I want you to delete a participant")
+            .trainingSentence("Remove a participant");
+
+        val deleteParticipantGetName = intent("DeleteParticipantGetName")
+            .trainingSentence("The name of the participant that has to be deleted is GDPARTNAME")
+            .trainingSentence("The participant to be deleted is GDPARTNAME")
+            .trainingSentence("I want the participant named GDPARTNAME to be deleted")
+            .parameter("gdpartname").fromFragment("GDPARTNAME").entity(any());
+
+        val deleteParticipantConfirm = intent("DeleteParticipantConfirm")
+            .trainingSentence("Yes, delete this participant")
+            .trainingSentence("Yes, you will have to delete this participant");
+
+        //***************************************************************************************************************************
+
+        // Reading a participant
+
+        val readParticipant = intent("ReadParticipant")
+            .trainingSentence("I want to read a participant")
+            .trainingSentence("Read a participant")
+            .trainingSentence("I wish to read a participant")
+            .trainingSentence("A participant should be read")
+            .trainingSentence("Show me a participant")
+            .trainingSentence("Show a participant")
+            .trainingSentence("I want you to show me a participant");
+
+        val readParticipantGetName = intent("ReadParticipantGetName")
+            .trainingSentence("The name of the participant that has to be read is GRPARTNAME")
+            .trainingSentence("The participant to be read is GRPARTNAME")
+            .trainingSentence("I want to read the participant named GRPARTNAME")
+            .trainingSentence("The name of the participant that I want to read is GRPARTNAME")
+            .parameter("grpartname").fromFragment("GRPARTNAME").entity(any());
+
+        val readParticipantConfirm = intent("ReadParticipantConfirm")
+            .trainingSentence("Yes, I want to read this participant")
+            .trainingSentence("Yes, show me this participant")
+            .trainingSentence("Yes, show this participant");
+
+        //***************************************************************************************************************************
+
+        // Assets---------------------------------------------------------------------------------------------
+
+        val notTheAsset = intent("NotTheAsset")
+            .trainingSentence("No, this isn't the asset")
+            .trainingSentence("This one is not the asset")
+            .trainingSentence("I don't want to edit this asset")
+            .trainingSentence("I don't want to delete this asset")
+            .trainingSentence("I don't want to read this asset")
+            .trainingSentence("This isn't the asset")
+            .trainingSentence("This asset should not be edited")
+            .trainingSentence("This asset should not be deleted")
+            .trainingSentence("This asset should not be shown");
+
+        // Creating an asset
+        val createAsset = intent("CreateAsset")
+            .trainingSentence("I want to create an asset")
+            .trainingSentence("Create an asset")
+            .trainingSentence("I wish to create an asset")
+            .trainingSentence("I want to create another asset")
+            .trainingSentence("Make an asset")
+            .trainingSentence("I want to make an asset")
+            .trainingSentence("I want to have an asset")
+            .trainingSentence("I want to have another asset")
+            .trainingSentence("An asset should be created");
+
+        val createAssetSetType = intent("CreateAssetSetType")
+            .trainingSentence("The type of the asset should be ASSTTYPE")
+            .trainingSentence("The type of the asset is ASSTTYPE")
+            .trainingSentence("I want the type of the asset to be ASSTTYPE")
+            .trainingSentence("Set the type of the asset as ASSTTYPE")
+            .parameter("assttype").fromFragment("ASSTTYPE").entity(any());
+
+        val createAssetSetName = intent("CreateAssetSetName")
+            .trainingSentence("The name of the asset should be ASSTNAME")
+            .trainingSentence("The name of the asset is ASSTNAME")
+            .trainingSentence("I want to name the asset as ASSTNAME")
+            .trainingSentence("Set the name of the asset as ASSTNAME")
+            .trainingSentence("Asset's name is ASSTNAME")
+            .trainingSentence("Asset's name should be ASSTNAME")
+            .trainingSentence("Name of asset = ASSTNAME")
+            .parameter("asstname").fromFragment("ASSTNAME").entity(any());
+
+        val createAssetSetList = intent("CreateAssetSetList")
+            .trainingSentence("The list attribute of the asset is ASSTLIST")
+            .trainingSentence("The list for the asset is ASSTLIST")
+            .parameter("asstlist").fromFragment("ASSTLIST").entity(any());
+
+        val createAssetAssertParameter = intent("CreateAssetAssertParameter")
+            .trainingSentence("Yes, I want to have a parameter for this asset")
+            .trainingSentence("Yes, I want to have more parameters for the asset")
+            .trainingSentence("I want to build more parameters for this asset");
+
+        val createAssetAssertRelationship = intent("CreateAssetAssertRelationship")
+            .trainingSentence("Yes, I want to build a relationship for this asset")
+            .trainingSentence("Yes, I want to build more relationships for the asset")
+            .trainingSentence("I want to build more relationships for this asset");
+
+        val createAssetDone = intent("CreateAssetDone")
+            .trainingSentence("No, that's all for the asset")
+            .trainingSentence("This asset is completed")
+            .trainingSentence("No, I don't want to change the asset anymore")
+            .trainingSentence("The asset is complete")
+            .trainingSentence("The asset is done")
+            .trainingSentence("Nothing more to add to the asset");
+
+        val createAssetSetIdentifier = intent("CreateAssetSetIdentifier")
+            .trainingSentence("I want ASSTID to be the identifier for the asset")
+            .trainingSentence("ASSTID should be the identifier for the asset")
+            .trainingSentence("Make ASSTID the identifier for the asset")
+            .trainingSentence("Asset's identifier is ASSTID")
+            .trainingSentence("Asset's should be ASSTID")
+            .parameter("asstid").fromFragment("ASSTID").entity(any());
+
+        //***************************************************************************************************************************
+
+        // Editing an asset
+
+        val editAsset = intent("EditAsset")
+            .trainingSentence("I want to edit an asset")
+            .trainingSentence("Edit an asset")
+            .trainingSentence("I wish to edit an asset")
+            .trainingSentence("An asset should be edited")
+            .trainingSentence("Make changes in an asset")
+            .trainingSentence("Update an asset")
+            .trainingSentence("I want to update an asset");
+
+        val editAssetGetName = intent("EditAssetGetName")
+            .trainingSentence("The name of the asset that has to be edited is GEASSTNAME")
+            .trainingSentence("The asset to be edited is GEASSTNAME")
+            .trainingSentence("I want to edit the asset named GEASSTNAME")
+            .parameter("geasstname").fromFragment("GEASSTNAME").entity(any());
+
+        val editAssetConfirm = intent("EditAssetConfirm")
+            .trainingSentence("Yes, edit this asset")
+            .trainingSentence("Yes, I want to edit this asset")
+            .trainingSentence("Yes, this is the asset I want to edit")
+            .trainingSentence("Yes, this is the asset")
+            .trainingSentence("Yep, this asset has to be edited");
+
+        val editAssetChangeName = intent("EditAssetChangeName")
+            .trainingSentence("I want to change the name of the asset")
+            .trainingSentence("I want to edit the name of the asset")
+            .trainingSentence("I want to rename the asset")
+            .trainingSentence("Change the name of the asset")
+            .trainingSentence("Change the name of the asset")
+            .trainingSentence("Edit the name of the asset")
+            .trainingSentence("The name of the asset has to be changed")
+            .trainingSentence("The name of the asset should be changed");
+
+        val editAssetChangeIdentifier = intent("EditAssetChangeIdentifier")
+            .trainingSentence("I want to change the identifier for the asset")
+            .trainingSentence("I want to update the identifier for the asset")
+            .trainingSentence("Change the identifier of the asset")
+            .trainingSentence("The identifier of the asset should be edited");
+
+        val editAssetEditParameter = intent("EditAssetEditParameter")
+            .trainingSentence("I want to edit a parameter for the asset")
+            .trainingSentence("I want to update a parameter for the asset")
+            .trainingSentence("Update a parameter of the asset")
+            .trainingSentence("Edit a parameter of the asset")
+            .trainingSentence("A parameter of the asset has to be edited")
+            .trainingSentence("I want to edit a parameter of the asset");
+
+        val editAssetDeleteParameter = intent("EditAssetDeleteParameter")
+            .trainingSentence("I want to delete a parameter for the asset")
+            .trainingSentence("I want to remove a parameter for the asset")
+            .trainingSentence("Delete a parameter of the asset")
+            .trainingSentence("A parameter of the asset has to be deleted")
+            .trainingSentence("A parameter of the asset has to be removed");
+
+        val editAssetContinueEditing = intent("EditAssetContinueEditing")
+            .trainingSentence("I want to continue editing this asset")
+            .trainingSentence("I want to edit this asset")
+            .trainingSentence("I want to make more changes in the asset")
+            .trainingSentence("Continue editing the asset")
+            .trainingSentence("I want to update this asset more");
+
+        //***************************************************************************************************************************
+
+        // Deleting an asset
+
+        val deleteAsset = intent("DeleteAsset")
+            .trainingSentence("I want to delete an asset")
+            .trainingSentence("Delete an asset")
+            .trainingSentence("I wish to delete an asset")
+            .trainingSentence("An asset should be deleted")
+            .trainingSentence("An asset has to be removed")
+            .trainingSentence("I want you to delete an asset")
+            .trainingSentence("Remove an asset");
+
+        val deleteAssetGetName = intent("DeleteAssetGetName")
+            .trainingSentence("The name of the asset that has to be deleted is GDASSTNAME")
+            .trainingSentence("The asset to be deleted is GDASSTNAME")
+            .trainingSentence("I want the asset named GDASSTNAME to be deleted")
+            .parameter("gdasstname").fromFragment("GDASSTNAME").entity(any());
+
+        val deleteAssetConfirm = intent("DeleteAssetConfirm")
+            .trainingSentence("Yes, delete this asset")
+            .trainingSentence("Yes, you will have to delete this asset");
+
+        //***************************************************************************************************************************
+
+        // Reading an asset
+
+        val readAsset = intent("ReadAsset")
+            .trainingSentence("I want to read an asset")
+            .trainingSentence("Read an asset")
+            .trainingSentence("I wish to read an asset")
+            .trainingSentence("An asset should be read")
+            .trainingSentence("Show me an asset")
+            .trainingSentence("Show an asset")
+            .trainingSentence("I want you to show me an asset");
+
+        val readAssetGetName = intent("ReadAssetGetName")
+            .trainingSentence("The name of the asset that has to be read is GRASSTNAME")
+            .trainingSentence("The asset to be read is GRASSTNAME")
+            .trainingSentence("I want to read the asset named GRASSTNAME")
+            .trainingSentence("The name of the asset that I want to read is GRASSTNAME")
+            .parameter("grasstname").fromFragment("GRASSTNAME").entity(any());
+
+        val readAssetConfirm = intent("ReadAssetConfirm")
+            .trainingSentence("Yes, I want to read this asset")
+            .trainingSentence("Yes, show me this asset");
+
+        //***************************************************************************************************************************
+
+        // Transactions-----------------------------------------------------------------------------------------
+
+        val notTheTransaction = intent("NotTheTransaction")
+            .trainingSentence("No, this isn't the transaction")
+            .trainingSentence("This one is not the transaction")
+            .trainingSentence("I don't want to edit this transaction")
+            .trainingSentence("I don't want to delete this transaction")
+            .trainingSentence("I don't want to read this transaction")
+            .trainingSentence("This isn't the transaction")
+            .trainingSentence("This transaction should not be edited")
+            .trainingSentence("This transaction should not be deleted")
+            .trainingSentence("This transaction should not be shown");
+
+        // Creating a transaction
+
+        val createTransaction = intent("CreateTransaction")
+            .trainingSentence("I want to create a transaction")
+            .trainingSentence("Create a transaction")
+            .trainingSentence("I wish to create a transaction")
+            .trainingSentence("A transaction should be created")
+            .trainingSentence("I want to create another transaction")
+            .trainingSentence("Make a transaction")
+            .trainingSentence("I want to make a transaction")
+            .trainingSentence("I want to have a transaction")
+            .trainingSentence("I want to have another transaction");
+
+        val createTransactionSetName = intent("CreateTransactionSetName")
+            .trainingSentence("The name of the transaction should be TRANNAME")
+            .trainingSentence("The name of the transaction is TRANNAME")
+            .trainingSentence("I want to name the transaction as TRANNAME")
+            .trainingSentence("Set the name of the transaction as TRANNAME")
+            .parameter("tranname").fromFragment("TRANNAME").entity(any());
+
+        val createTransactionSetList = intent("CreateTransactionSetList")
+            .trainingSentence("The list attribute of the asset is TRANLIST")
+            .trainingSentence("The list for the asset is TRANLIST")
+            .parameter("tranlist").fromFragment("TRANLIST").entity(any());
+
+        val createTransactionCondition = intent("CreateTransactionCondition")
+            .trainingSentence("Yes, I would like to have condition for the transaction")
+            .trainingSentence("Yes, I want conditions for thr transaction");
+
+        val createTransactionConditionName = intent("CreateTransactionConditionName")
+            .trainingSentence("The name of the condition is TRANCONDNAME")
+            .trainingSentence("Name the conditon as TRANCONDNAME")
+            .trainingSentence("The name of the condition should be TRANCONDNAME")
+            .parameter("trancondname").fromFragment("TRANCONDNAME").entity(any());
+
+        val createTransactionConditionCondition =  intent("CreateTransactionConditionCondition")
+            .trainingSentence("The condition is TRANCONDCOND")
+            .trainingSentence("The condition for the transaction should be TRANCONDCOND")
+            .trainingSentence("The condition would be TRANCONDCOND")
+            .parameter("trancondcond").fromFragment("TRANCONDCOND").entity(any());
+
+        val createTransactionConditionType = intent("CreateTransactionConditionType")
+            .trainingSentence("The condition would be of type PREPOST")
+            .trainingSentence("It is a PREPOST")
+            .parameter("prepost").fromFragment("PREPOST").entity(any());
+
+        val createTransactionAssertCondition = intent("CreateTransactionAssertCondition")
+            .trainingSentence("Yes, I want to have another conditon for this transaction")
+            .trainingSentence("Yes, I want to have more conditions for the transaction")
+            .trainingSentence("I want to build more conditions for this transaction")
+            .trainingSentence("Create another condition for the transaction")
+            .trainingSentence("I want to create another condition for the transaction");
+
+        val createTransactionDenyCondition = intent("CreateTransactionDenyCondition")
+            .trainingSentence("No, I don't want to have another conditon for this transaction")
+            .trainingSentence("I don't want to have any more conditions for the transaction")
+            .trainingSentence("I don't want any more transactions")
+            .trainingSentence("No, I do not want any conditions for the transaction")
+            .trainingSentence("I don't want condition for the transaction");
+
+        val createTransactionConditionDone = intent("CreateTransactionConditionDone")
+            .trainingSentence("That's all for the conditions for the transaction")
+            .trainingSentence("I don't want to have any more conditions for the transaction");
+
+        val createTransactionSetMostrar = intent("CreateTransactionSetMostrar")
+            .trainingSentence("The attribute mostrar should be TRANMOST")
+            .trainingSentence("Mostrar for the transaction is TRANMOST")
+            .parameter("tranmost").fromFragment("TRANMOST").entity(any());
+
+        val createTransactionAssertParameter = intent("CreateTransactionAssertParameter")
+            .trainingSentence("Yes, I want to have a parameter for this transaction")
+            .trainingSentence("Yes, I want to have more parameters for the transaction")
+            .trainingSentence("I want to build more parameters for this transaction");
+
+        val createTransactionAssertRelationship = intent("CreateTransactionAssertRelationship")
+            .trainingSentence("Yes, I want to build a relationship for this transaction")
+            .trainingSentence("Yes, I want to build more relationships for the transaction")
+            .trainingSentence("I want to build more relationships for this transaction")
+            .trainingSentence("Yes, I want to create a relationship")
+            .trainingSentence("I want to create a relationship")
+            .trainingSentence("Yes, I want to make a relationship")
+            .trainingSentence("Create a relationship")
+            .trainingSentence("Build a relationship")
+            .trainingSentence("Make a relationship");
+
+        val createTransactionAssertTranRelationship = intent("CreateTransactionAssertTranRelationship")
+            .trainingSentence("It will be from a participant")
+            .trainingSentence("The relationship will be from a participant");
+
+        val createTransactionAssertAssetRelationship = intent("CreateTransactionAssertAssetRelationship")
+            .trainingSentence("It will be from an asset")
+            .trainingSentence("The relationship will be from an asset");
+
+        val createTransactionRelationshipName = intent("CreateTransactionRelationshipName")
+            .trainingSentence("The name of the relationship is RELNAME")
+            .trainingSentence("Name the relationship as RELNAME")
+            .trainingSentence("The name of the relationship should be RELNAME")
+            .parameter("relname").fromFragment("RELNAME").entity(any());
+
+        val createTransactionTranRelationshipFrom = intent("CreateTransactionTranRelationshipFrom")
+            .trainingSentence("The participant for the relationship would be RELPART")
+            .trainingSentence("The relationship would from the participant named RELPART")
+            .trainingSentence("The participant for the relationship is RELPART")
+            .trainingSentence("The name of the participant for the relationship is RELPART")
+            .trainingSentence("The participant to be used in the relationship is RELPART")
+            .parameter("relpart").fromFragment("RELPART").entity(any());
+
+        val createTransactionAssetRelationshipFrom = intent("CreateTransactionAssetRelationshipFrom")
+            .trainingSentence("The asset for the relationship would be RELASST")
+            .trainingSentence("The relationship would from the asset named RELASST")
+            .trainingSentence("The asset for the relationship is RELASST")
+            .trainingSentence("The name of the asset for the relationship is RELASST")
+            .trainingSentence("The asset to be used in the relationship is RELASST")
+            .parameter("relasst").fromFragment("RELASST").entity(any());
+
+        val createTransactionAssertRelationshipEvent = intent("CreateTransactionAssertRelationshipEvent")
+            .trainingSentence("Yes, I want an event for the relationship")
+            .trainingSentence("Yes, an event for the relationship has to be created");
+
+        val createTransactionDenyRelationshipEvent = intent("CreateTransactionDenyRelationshipEvent")
+            .trainingSentence("No, I don't want any event for the relationship")
+            .trainingSentence("No event is required for the relationship")
+            .trainingSentence("I don't want anymore of events for the relationship");
+
+        val createTransactionRelationshipEventName = intent("CreateTransactionRelationshipEventName")
+            .trainingSentence("The name of the event is EVENTNAME")
+            .trainingSentence("Name of the event should be EVENTNAME")
+            .parameter("eventname").fromFragment("EVENTNAME").entity(any());
+
+        val createTransactionRelationshipEventDescription = intent("CreateTransactionRelationshipEventDescription")
+            .trainingSentence("The event can be described by EVENTDESC")
+            .trainingSentence("Event description - EVENTDESC")
+            .trainingSentence("The description of the event is - EVENTDESC")
+            .parameter("eventdesc").fromFragment("EVENTDESC").entity(any());
+
+        val createTransactionDone = intent("CreateTransactionDone")
+            .trainingSentence("No, that's all for the transaction")
+            .trainingSentence("This transaction is completed")
+            .trainingSentence("No, I don't want to change the transaction anymore");
+
+        //***************************************************************************************************************************
+
+        // Editing a transaction
+
+        val editTransaction = intent("EditTransaction")
+            .trainingSentence("I want to edit a transaction")
+            .trainingSentence("Edit a transaction")
+            .trainingSentence("I wish to edit a transaction")
+            .trainingSentence("A transaction should be edited");
+
+        val editTransactionGetName = intent("EditTransactionGetName")
+            .trainingSentence("The name of the transaction that has to be edited is GETRANNAME")
+            .trainingSentence("The transaction to be edited is GETRANNAME")
+            .trainingSentence("I want to edit the transaction named GETRANNAME")
+            .parameter("getranname").fromFragment("GETRANNAME").entity(any());
+
+        val editTransactionConfirm = intent("EditTransactionConfirm")
+            .trainingSentence("Yes, edit this transaction")
+            .trainingSentence("Yes, I want to edit this transaction");
+
+        val editTransactionChangeName = intent("EditTransactionChangeName")
+            .trainingSentence("I want to change the name of the transaction")
+            .trainingSentence("I want to edit the name of the transaction")
+            .trainingSentence("I want to rename the transaction");
+
+        val editTransactionEditParameter = intent("EditTransactionEditParameter")
+            .trainingSentence("I want to edit a parameter for the transaction")
+            .trainingSentence("I want to update a parameter for the transaction")
+            .trainingSentence("Edit a parameter of the transaction");
+
+        val editTransactionDeleteParameter = intent("EditTransactionDeleteParameter")
+            .trainingSentence("I want to delete a parameter for the transaction")
+            .trainingSentence("I want to remove a parameter for the transaction")
+            .trainingSentence("Delete a parameter of the transaction");
+
+        val editTransactionEditRelationship = intent("EditTransactionEditRelationship")
+            .trainingSentence("I want to edit a relationship for the transaction")
+            .trainingSentence("I want to update a relationship for the transaction")
+            .trainingSentence("Edit a relationship of the transaction")
+            .trainingSentence("I want to edit a relationship");
+
+        val editTransactionDeleteRelationship = intent("EditTransactionDeleteRelationship")
+            .trainingSentence("I want to delete a relationship for the transaction")
+            .trainingSentence("I want to remove a relationship for the transaction")
+            .trainingSentence("Delete a relationship of the transaction")
+            .trainingSentence("I want to delete a transaction");
+
+        val editTransactionEditCondition = intent("EditTransactionEditCondition")
+            .trainingSentence("I want to edit a condition for the transaction")
+            .trainingSentence("I want to update a condition for the transaction")
+            .trainingSentence("Edit a condition of the transaction")
+            .trainingSentence("I want to edit a condition");
+
+        val editTransactionDeleteCondition = intent("EditTransactionDeleteCondition")
+            .trainingSentence("I want to delete a condition for the transaction")
+            .trainingSentence("I want to remove a condition for the transaction")
+            .trainingSentence("Delete a condition of the transaction")
+            .trainingSentence("I want to delete a condition");
+
+        val editRelationshipGetName = intent("EditRelationshipGetName")
+            .trainingSentence("The name of the relationship that has to be edited is GERELNAME")
+            .trainingSentence("The relationship to be edited is GERELNAME")
+            .trainingSentence("I want the relationship named GERELNAME to be edited")
+            .parameter("gerelname").fromFragment("GERELNAME").entity(any());
+
+        val editRelationshipConfirm = intent("EditRelationshipConfirm")
+            .trainingSentence("Yes, edit this relationship")
+            .trainingSentence("Yes, I want to edit this relationship")
+            .trainingSentence("Yes, you will have to edit this relationship");
+
+        val editRelationshipChangeName = intent("EditRelationshipChangeName")
+            .trainingSentence("I want to change the name of the relationship")
+            .trainingSentence("I want to edit the name of the relationship")
+            .trainingSentence("I want to rename the relationship");
+
+        val editRelationshipChangeFrom = intent("EditRelationshipChangeFrom")
+            .trainingSentence("I want to change from where the relationship is directed")
+            .trainingSentence("I want to change the from attribute of the relationship");
+
+        val deleteRelationshipGetName = intent("DeleteRelationshipGetName")
+            .trainingSentence("The name of the relationship that has to be deleted is GDRELNAME")
+            .trainingSentence("The relationship to be deleted is GDRELNAME")
+            .trainingSentence("I want the relationship named GDRELNAME to be deleted")
+            .parameter("gdrelname").fromFragment("GDRELNAME").entity(any());
+
+        val deleteRelationshipConfirm = intent("DeleteRelationshipConfirm")
+            .trainingSentence("Yes, delete this relationship")
+            .trainingSentence("Yes, you will have to delete this relationship");
+
+        val editConditionGetName = intent("EditConditionGetName")
+            .trainingSentence("The name of the condition that has to be edited is GECONDNAME")
+            .trainingSentence("The condition to be edited is GECONDNAME")
+            .trainingSentence("I want the condition named GECONDNAME to be edited")
+            .parameter("gecondname").fromFragment("GECONDNAME").entity(any());
+
+        val editConditionConfirm = intent("EditConditionConfirm")
+            .trainingSentence("Yes, edit this condition")
+            .trainingSentence("Yes, I want to edit this condition")
+            .trainingSentence("Yes, you will have to edit this condition");
+
+        val editConditionChangeName = intent("EditConditionChangeName")
+            .trainingSentence("I want to change the name of the condition")
+            .trainingSentence("I want to edit the name of the condition")
+            .trainingSentence("I want to rename the condition");
+
+        val editConditionChangeCondition = intent("EditConditionChangeCondition")
+            .trainingSentence("I want to change the relation in the condition")
+            .trainingSentence("I want to change the condition stated here");
+
+        val deleteConditionGetName = intent("DeleteConditionGetName")
+            .trainingSentence("The name of the condition that has to be deleted is GDCONDNAME")
+            .trainingSentence("The condition to be deleted is GDCONDNAME")
+            .trainingSentence("I want the condition named GDCONDNAME to be deleted")
+            .parameter("gdcondname").fromFragment("GDCONDNAME").entity(any());
+
+        val deleteConditionConfirm = intent("DeleteConditionConfirm")
+            .trainingSentence("Yes, delete this condition")
+            .trainingSentence("Yes, you will have to delete this condition")
+            .trainingSentence("Yes, I want to delete this condition");
+
+        val editTransactionContinueEditing = intent("EditTransactionContinueEditing")
+            .trainingSentence("I want to continue editing this transaction")
+            .trainingSentence("I want to edit this transaction")
+            .trainingSentence("I want to make more changes in the transaction")
+            .trainingSentence("Continue editing the transaction")
+            .trainingSentence("I want to update this transaction more");
+
+        //***************************************************************************************************************************
+
+        // Deleting a transaction
+
+        val deleteTransaction = intent("DeleteTransaction")
+            .trainingSentence("I want to delete a transaction")
+            .trainingSentence("Delete a transaction")
+            .trainingSentence("I wish to delete a transaction")
+            .trainingSentence("A transaction should be deleted")
+            .trainingSentence("I want to remove a transaction")
+            .trainingSentence("Remove a transaction");
+
+        val deleteTransactionGetName = intent("DeleteTransactionGetName")
+            .trainingSentence("The name of the transaction that has to be deleted is GDTRANNAME")
+            .trainingSentence("The transaction to be deleted is GDTRANNAME")
+            .trainingSentence("I want the transaction named GDTRANNAME to be deleted")
+            .parameter("gdtranname").fromFragment("GDTRANNAME").entity(any());
+
+        val deleteTransactionConfirm = intent("DeleteTransactionConfirm")
+            .trainingSentence("Yes, delete this transaction")
+            .trainingSentence("Yes, you will have to delete this transaction");
+
+        //***************************************************************************************************************************
+
+        // Reading a transaction
+        val readTransaction = intent("ReadTransaction")
+            .trainingSentence("I want to read a transaction")
+            .trainingSentence("Read a transaction")
+            .trainingSentence("I wish to read a transaction")
+            .trainingSentence("A transaction should be read")
+            .trainingSentence("Show me a transaction")
+            .trainingSentence("I want you to show me a transaction");
+
+        val readTransactionGetName = intent("ReadTransactionGetName")
+            .trainingSentence("The name of the transaction that has to be read is GRTRANNAME")
+            .trainingSentence("The transaction to be read is GRTRANNAME")
+            .trainingSentence("I want to read the transaction named GRTRANNAME")
+            .trainingSentence("The name of the transaction that I want to read is GRTRANNAME")
+            .parameter("grtranname").fromFragment("GRTRANNAME").entity(any());
+
+        val readTransactionConfirm = intent("ReadTransactionConfirm")
+            .trainingSentence("Yes, I want to read this transaction")
+            .trainingSentence("Yes, show me this transaction");
+
+        //***************************************************************************************************************************
+
+        // Parameter------------------------------------------------------------------------------------------------
+
+        val createAssertParameter = intent("CreateParameterAssert")
+            .trainingSentence("I want to create a parameter")
+            .trainingSentence("I want to build a parameter")
+            .trainingSentence("I want to have another parameter")
+            .trainingSentence("Yes, I want to create another parameter")
+            .trainingSentence("Yes, I want to build another parameter");
+
+        val editAssertParameter = intent("EditAssertParameter")
+            .trainingSentence("I want to edit a parameter")
+            .trainingSentence("I want to change a parameter")
+            .trainingSentence("I want to make changes to a parameter")
+            .trainingSentence("Edit a parameter")
+            .trainingSentence("I want to update a parameter")
+            .trainingSentence("Update a parameter");
+
+        val createParameterSetName = intent("CreateParameterSetName")
+            .trainingSentence("The name of the parameter should be PARANAME")
+            .trainingSentence("The name of the parameter is PARANAME")
+            .trainingSentence("I want to name the parameter as PARANAME")
+            .trainingSentence("Set the name of the parameter as PARANAME")
+            .trainingSentence("The parameter is PARANAME")
+            .parameter("paraname").fromFragment("PARANAME").entity(any());
+
+        val createParameterSetType = intent("CreateParameterSetType")
+            .trainingSentence("The type of the parameter should be PARATYPE")
+            .trainingSentence("The type of the parameter is PARATYPE")
+            .trainingSentence("Set the type of the parameter as PARATYPE")
+            .parameter("paratype").fromFragment("PARATYPE").entity(any());
+
+        val deleteParameterGetName = intent("DeleteParameterGetName")
+            .trainingSentence("The name of the parameter that has to be deleted is GDPARANAME")
+            .trainingSentence("The parameter to be deleted is GDPARANAME")
+            .trainingSentence("I want the parameter named GDPARANAME to be deleted")
+            .parameter("gdparaname").fromFragment("GDPARANAME").entity(any());
+
+        val deleteParameterConfirm = intent("DeleteParameterConfirm")
+            .trainingSentence("Yes, delete this parameter")
+            .trainingSentence("Yes, you will have to delete this parameter");
+
+        val editParameterGetName = intent("EditParameterGetName")
+            .trainingSentence("The name of the parameter that has to be edited is GEPARANAME")
+            .trainingSentence("The parameter to be edited is GEPARANAME")
+            .trainingSentence("I want the parameter named GEPARANAME to be edited")
+            .parameter("geparaname").fromFragment("GEPARANAME").entity(any());
+
+        val editParameterConfirm = intent("EditParameterConfirm")
+            .trainingSentence("Yes, edit this parameter")
+            .trainingSentence("Yes, I want to edit this parameter")
+            .trainingSentence("Yes, you will have to edit this parameter");
+
+        val editParameterChangeName = intent("EditParameterChangeName")
+            .trainingSentence("I want to change the name of the parameter")
+            .trainingSentence("I want to edit the name of the parameter")
+            .trainingSentence("I want to rename the parameter");
+
+        val editParameterChangeType = intent("EditParameterChangeType")
+            .trainingSentence("I want to change the type of the parameter")
+            .trainingSentence("I want to edit the type of the parameter")
+            .trainingSentence("I want to update the parameter");
+
+        //***************************************************************************************************************************
+
+        //***************************************************************************************************************************
+        // Complete------------------------------------------------------------------------------------------------
+
+        val contractDone = intent("ContractDone")
+            .trainingSentence("That's all for the contract")
+            .trainingSentence("The contract is done")
+            .trainingSentence("That's all the information I wish to give for contract")
+            .trainingSentence("The Smart Contract is done")
+            .trainingSentence("Done")
+            .trainingSentence("done")
+            .trainingSentence("DONE");
+
+        //***************************************************************************************************************************
+
+        // Get the target platform for the code generation
+
+        val getTargetPlatform = intent("GetTargetPlatform")
+            .trainingSentence("The platform should be TARGPLAT")
+            .trainingSentence("The smart contract must be generated in TARGPLAT")
+            .trainingSentence("The language of the smart contract must be TARGPLAT")
+            .trainingSentence("The platform for smart contract is TARGPLAT")
+            .trainingSentence("Smart contract must be in TARGPLAT")
+            .parameter("targplat").fromFragment("TARGPLAT").entity(any());
+
+        val getCreator = intent("GetCreator")
+            .trainingSentence("The creator must be CREA")
+            .trainingSentence("The creator of the smart contract is CREA")
+            .trainingSentence("I want CREA to be the creator of the smart contract")
+            .trainingSentence("The creator is CREA")
+            .trainingSentence("CREA must be assigned as the creator of the smart contract")
+            .parameter("crea").fromFragment("CREA").entity(any());
+
+        val generateOnAnotherPlatform = intent("GenerateOnAnotherPlatform")
+            .trainingSentence("Yes, I want to generate the smart contract in another platform")
+            .trainingSentence("Generate the smart contract in another platform")
+            .trainingSentence("Yes, I want to generate smart contract in another language")
+            .trainingSentence("I want the smart contract in another language");
+
+        val generateAnotherSmartContract = intent("GenerateAnotherSmartContract")
+            .trainingSentence("I want to create another smart contract")
+            .trainingSentence("I want to make one more contract")
+            .trainingSentence("Yes, I want to create create another smart contract")
+            .trainingSentence("Build one more smart contract")
+            .trainingSentence("Create another contract");
